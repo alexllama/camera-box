@@ -7,9 +7,6 @@ holder, with no glue and no metal hardware in the current build.
 
 ![Exploded view of the camera](renders/exploded.png)
 
-The translucent slab is a **phone reference**, not a printed part; the arrow
-shows the direction the phone slides to choose a lens.
-
 Full build instructions are in [ASSEMBLY.md](ASSEMBLY.md); print details are in
 [PRINTSETTINGS.md](PRINTSETTINGS.md).
 
@@ -67,11 +64,3 @@ values below.
 | Aperture stops (6) | Base profile as-is | 0.9 mm web and 2.3 mm pads work fine at 0.20 mm |
 | Phone cap | As modelled, z up; 4 walls, 15% gyroid | 240 mm long; shift off the bed labels, no supports, ~60 g |
 | Lens test ring / alignment jig | Base profile as-is | Flat on the bed, no supports |
-
-### Bed-label discoloration
-
-Cosmetic ghosting of the bed's printed labels is usually a contact/gloss or
-heat-tint effect, not a nozzle problem. Use the "Textured PEI Plate" preset,
-wash both sides of the sheet with soap and water, reseat it firmly, and if the
-mark still shows, rotate the part or shift it 10–15 mm off the text. A yellow or
-brown tint with an odour means drop the bed to 55 °C and clean again.

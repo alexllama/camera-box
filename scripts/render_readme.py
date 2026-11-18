@@ -3,7 +3,7 @@
 Uses VTK offscreen rendering, so no GUI or external renderer is needed.
 
 Outputs:
-    renders/exploded.png   exploded assembly with a translucent phone reference
+    renders/exploded.png   exploded assembly of the current build
     renders/parts.png      sheet of the printed parts in the current build
 
 Run:
@@ -14,7 +14,6 @@ import os
 import tempfile
 
 from PIL import Image, ImageDraw, ImageFont
-from vtkmodules.vtkFiltersSources import vtkArrowSource, vtkCubeSource
 from vtkmodules.vtkIOGeometry import vtkSTLReader
 from vtkmodules.vtkIOImage import vtkPNGWriter
 from vtkmodules.vtkRenderingOpenGL2 import vtkEGLRenderWindow
@@ -167,37 +166,6 @@ def render_exploded():
         if filename in EXPLODE:
             actor.SetPosition(*EXPLODE[filename])
         actors.append(actor)
-
-    # Reference phone: case 165 x 82.6 x 11.5, lifted clear above the cap.
-    cube = vtkCubeSource()
-    cube.SetXLength(165.0)
-    cube.SetYLength(82.6)
-    cube.SetZLength(11.5)
-    cube.SetCenter(22.5, -23.7, 221.7 + 5.75 + 147 + 42)
-    mapper = vtkPolyDataMapper()
-    mapper.SetInputConnection(cube.GetOutputPort())
-    phone = vtkActor()
-    phone.SetMapper(mapper)
-    phone.GetProperty().SetColor(0.74, 0.79, 0.85)
-    phone.GetProperty().SetAmbient(0.45)
-    phone.GetProperty().SetDiffuse(0.55)
-    phone.GetProperty().SetOpacity(0.32)
-    actors.append(phone)
-
-    # Slide-direction arrow above the phone.
-    arrow = vtkArrowSource()
-    arrow.SetTipLength(0.32)
-    arrow.SetTipRadius(0.10)
-    arrow.SetShaftRadius(0.035)
-    amap = vtkPolyDataMapper()
-    amap.SetInputConnection(arrow.GetOutputPort())
-    aactor = vtkActor()
-    aactor.SetMapper(amap)
-    aactor.SetPosition(70, -23.7, 421)
-    aactor.SetScale(90, 9, 9)
-    aactor.GetProperty().SetColor(0.10, 0.35, 0.62)
-    aactor.GetProperty().SetLighting(False)
-    actors.append(aactor)
 
     out = os.path.join(RENDERS, "exploded.png")
     render_png(actors, 1200, 1700, out, azimuth="iso", margin=0.65)
